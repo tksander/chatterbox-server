@@ -11,6 +11,9 @@ Icon
 .Spotlight-V100
 .Trashes
 
+### config ###
+config.js
+
 
 ### Node ###
 lib-cov

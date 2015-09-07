@@ -1,4 +1,4 @@
-/*************************************************************
+ /*************************************************************
 
 You should implement your request handler function in this file.
 
@@ -71,3 +71,4 @@ var defaultCorsHeaders = {
   "access-control-max-age": 10 // Seconds.
 };
 
+module.exports.requestHandler = requestHandler;
