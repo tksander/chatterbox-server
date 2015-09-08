@@ -51,7 +51,9 @@ var requestHandler = function(request, response) {
   if(request.method === 'GET') {
 
   } else if(request.method === 'POST') {
-    console.log('hi!');
+    if(request.url === '/classes/messages') {
+      response.writeHead(201, {'Content-Type': 'text-html'});
+    }
   }
 
 
