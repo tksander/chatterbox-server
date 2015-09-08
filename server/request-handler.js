@@ -13,6 +13,8 @@ this file and include it in basic-server.js so that it actually works.
 **************************************************************/
 
 var data = { results: [{"user":"matthew", "text": "hello"}] };
+// Object ID
+var id = 0;
 
 var requestHandler = function(request, response) {
 
@@ -49,12 +51,26 @@ var requestHandler = function(request, response) {
   response.writeHead(statusCode, headers);
 
   if(request.method === 'GET') {
+    response.writeHead(statusCode, headers);
 
   } else if(request.method === 'POST') {
     if(request.url === '/classes/messages') {
+      
       response.writeHead(201, headers);
+
+      
+      var fullBody = '';
+
       request.on('data', function(chunk) {
-        console.log(chunk.toString());
+        fullBody += chunk.toString();
+        //push chunk to data structure
+      });
+
+      request.on('end', function() {
+
+        // var date = new Date();
+        // fullBody.createdAt = date;
+        data.results.push(JSON.parse(fullBody));
       });
     }
   }
@@ -67,7 +83,7 @@ var requestHandler = function(request, response) {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  response.end(JSON.stringify(data));
+  response.end(JSON.stringify(data), 'request ended');
 };
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
