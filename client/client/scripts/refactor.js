@@ -112,10 +112,10 @@ var MessagesView = Backbone.View.extend({
   },
 
   renderMessage: function(message) {
-    if (true) {
+    if (!this.onscreenMessages[message.get('text')]) {
       var messageView = new MessageView({model: message});
       this.$el.prepend(messageView.render());
-      this.onscreenMessages[message.get('name')] = true;
+      this.onscreenMessages[message.get('text')] = true;
     }
   }
 

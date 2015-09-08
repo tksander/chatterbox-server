@@ -53,6 +53,9 @@ var requestHandler = function(request, response) {
   } else if(request.method === 'POST') {
     if(request.url === '/classes/messages') {
       response.writeHead(201, headers);
+      request.on('data', function(chunk) {
+        console.log(chunk.toString());
+      });
     }
   }
 
