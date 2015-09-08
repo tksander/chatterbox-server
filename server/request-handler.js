@@ -16,6 +16,11 @@ var data = { results: [{"user":"matthew", "text": "hello"}] };
 // Object ID
 var id = 0;
 
+var urls = {
+  "/classes/messages" : true,
+  "/classes/room1" : true,
+}
+
 var requestHandler = function(request, response) {
 
   // Request and Response come from node's http module.
@@ -50,29 +55,33 @@ var requestHandler = function(request, response) {
   // which includes the status and all headers.
   response.writeHead(statusCode, headers);
 
-  if(request.method === 'GET') {
-    response.writeHead(statusCode, headers);
+  if(urls[request.url]) {
 
-  } else if(request.method === 'POST') {
-    if(request.url === '/classes/messages') {
-      
-      response.writeHead(201, headers);
+    if(request.method === 'GET') {
+      response.writeHead(statusCode, headers);
 
-      
-      var fullBody = '';
+    } else if(request.method === 'POST') {
+        
+        response.writeHead(201, headers);
 
-      request.on('data', function(chunk) {
-        fullBody += chunk.toString();
-        //push chunk to data structure
-      });
+        
+        var fullBody = '';
 
-      request.on('end', function() {
+        request.on('data', function(chunk) {
+          fullBody += chunk.toString();
+          //push chunk to data structure
+        });
 
-        // var date = new Date();
-        // fullBody.createdAt = date;
-        data.results.push(JSON.parse(fullBody));
-      });
+        request.on('end', function() {
+
+          // var date = new Date();
+          // fullBody.createdAt = date;
+          data.results.push(JSON.parse(fullBody));
+        });
     }
+ 
+  } else {
+   response.writeHead(404, headers);
   }
 
 
