@@ -12,7 +12,7 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 
-var data = { results: [{"user":"matthew", "text": "hello"}] };
+var data = { results: [] };
 // Object ID
 var id = 0;
 
